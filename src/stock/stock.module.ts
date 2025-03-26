@@ -7,7 +7,10 @@ import { FormatUtils } from './Utils/format.utils';
 @Module({
   controllers: [StockController],
   providers: [
-    StockService,
+    {
+      provide: 'StockService',
+      useClass: StockService,
+    },
     {
       provide: 'GSheetUtils',
       useClass: GSheetUtils,
