@@ -7,6 +7,7 @@ export class FormatUtils {
 
   dateToRowNumber(dateString: string): number | null {
     const targetDate = new Date(dateString);
+
     if (targetDate < this.startDate || targetDate > this.endDate) return null;
 
     const timeDiff = targetDate.getTime() - this.startDate.getTime();
