@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { google, sheets_v4 } from 'googleapis';
 import { GoogleAuth } from 'google-auth-library';
 import configuration from 'src/config/configuration';
+import { IGSheetUtils } from '../Interfaces/Utils/g-sheets-utils.interface';
 
 @Injectable()
-export class GSheetUtils {
+export class GSheetUtils implements IGSheetUtils {
   private headerCache: string[] = [];
 
   getAuth(): GoogleAuth {
