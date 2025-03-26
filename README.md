@@ -4,7 +4,7 @@ This application is designed to fetch closed stock data from a Google Sheet and 
 
 For example, you can retrieve stock price data by making a request like:
 
-http://localhost:3000/api/stock-price?symbol=NSE:%20TCS&date=2024-08-21
+https://stock.mohammedminhaj.blog/api/stock-price?symbol=NSE:%20TCS&date=2024-08-21
 
 
 Here:
