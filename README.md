@@ -1,98 +1,90 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Stock Price API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This application is designed to fetch closed stock data from a Google Sheet and serve it through a RESTful API. The data in the Google Sheet includes pre-loaded stock information, such as symbols and their corresponding closed prices for specific dates. The API extracts this data and returns it based on client queries.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+For example, you can retrieve stock price data by making a request like:
 
-## Description
+http://localhost:3000/api/stock-price?symbol=NSE:%20TCS&date=2024-08-21
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+Here:
+- **symbol** represents the stock identifier.
+- **date** specifies the trading day for which the data is required.
 
-```bash
-$ pnpm install
-```
+---
 
-## Compile and run the project
+## Table of Contents
 
-```bash
-# development
-$ pnpm run start
+- [Project Overview](#project-overview)
+- [Prerequisites](#prerequisites)
+- [Google Sheets API Setup](#google-sheets-api-setup)
+- [Installation & Setup](#installation--setup)
+- [Running the Application](#running-the-application)
+- [File Structure](#file-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-# watch mode
-$ pnpm run start:dev
+---
 
-# production mode
-$ pnpm run start:prod
-```
+## Project Overview
 
-## Run tests
+The Stock Price API is built using:
+- **Node.js** and **NestJS** for a robust and scalable server-side framework.
+- **Docker** and **Docker Compose** to containerize the application, ensuring consistency across environments.
 
-```bash
-# unit tests
-$ pnpm run test
+The application’s primary function is to read stock data from a Google Sheet that contains information about closed stocks. It then exposes endpoints to allow users to query this data based on specific symbols and dates.
 
-# e2e tests
-$ pnpm run test:e2e
+---
 
-# test coverage
-$ pnpm run test:cov
-```
+## Prerequisites
 
-## Deployment
+Before setting up the project, ensure you have the following installed on your system:
+- [Node.js (>= 14.x)](https://nodejs.org/)
+- [NestJS CLI](https://docs.nestjs.com/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Google Sheets API Setup
 
-```bash
-$ pnpm install -g mau
-$ mau deploy
-```
+To integrate the Google Sheets API, follow these steps:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+1. **Create a Google Cloud Project:**
+   - Visit the [Google Cloud Console](https://console.cloud.google.com/).
+   - Create a new project or select an existing one.
 
-## Resources
+2. **Enable the Google Sheets API:**
+   - In your project dashboard, navigate to **APIs & Services > Library**.
+   - Search for **Google Sheets API** and enable it.
 
-Check out a few resources that may come in handy when working with NestJS:
+3. **Create a Service Account:**
+   - Go to **APIs & Services > Credentials**.
+   - Click on **Create Credentials** and select **Service Account**.
+   - Follow the prompts to create your service account.
+   - Once created, generate a new key in JSON format.
+   - Download the `credentials.json` file and place it in the project directory as referenced by the Docker Compose configuration.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+4. **Share Your Google Sheet:**
+   - Open your Google Sheet that contains the stock data.
+   - Share the sheet with the service account email (found in your `credentials.json` file) granting Editor permissions.
 
-## Support
+5. **Configure Environment Variables:**
+   - Rename the provided `env.template` file to `.env`.
+   - Add the following variables (and any additional ones you need) in the `.env` file:
+     ```env
+      GOOGLE_SHEETS_ID=<googlesheetid>
+      CREDENTIALS_PATH=./credentials.json
+      GOOGLE_SHEETS_SCOPES=https://www.googleapis.com/auth/spreadsheets
+     ```
+   - Ensure that the `credentials.json` file is in the correct directory as expected by the Docker Compose setup.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## Installation & Setup
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. **Clone the Repository:**
 
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+   ```bash
+   git clone https://github.com/Minhajxdd/history-stock-rest-api.git
+   cd history-stock-rest-api
