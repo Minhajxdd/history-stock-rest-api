@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { GSheetUtils } from '../Utils/g-sheets.utils';
 import { FormatUtils } from '../Utils/format.utils';
+import configuration from 'src/config/configuration';
 
 @Injectable()
 export class StockService {
@@ -22,7 +23,7 @@ export class StockService {
 
     if (!rowNumber) {
       throw new BadRequestException(
-        `Date out of range (2024-04-01 to 2025-03-31)`,
+        `Date out of range (${configuration().date.start_date} - ${configuration().date.end_date})`,
       );
     }
 

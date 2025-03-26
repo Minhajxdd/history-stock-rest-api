@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import configuration from 'src/config/configuration';
 
 @Injectable()
 export class FormatUtils {
-  private readonly startDate = new Date('2024-04-01');
-  private readonly endDate = new Date('2025-03-31');
+  private readonly startDate = new Date(configuration().date.start_date);
+  private readonly endDate = new Date(configuration().date.end_date);
 
   dateToRowNumber(dateString: string): number | null {
     const targetDate = new Date(dateString);
