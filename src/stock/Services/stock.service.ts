@@ -27,24 +27,16 @@ export class StockService {
       );
     }
 
-    const auth = this._gSheetUtils.getAuth();
-    const sheets = google.sheets({ version: 'v4', auth });
+    const response = await this._gSheetUtils.getData(columnIndex, rowNumber);
 
-    const range = `Sheet1!${String.fromCharCode(65 + columnIndex)}${rowNumber}`;
-
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_SHEETS_ID,
-      range: range,
-    });
-
-    if (!response.data.values || !response.data.values[0]) {
+    if (!response.values || !response.values[0]) {
       throw new BadRequestException('Price data not found');
     }
 
     const data = {
       symbol,
       date,
-      price: response.data.values[0][0],
+      price: response.values[0][0],
     };
 
     return {
