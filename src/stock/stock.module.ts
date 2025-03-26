@@ -8,7 +8,10 @@ import { FormatUtils } from './Utils/format.utils';
   controllers: [StockController],
   providers: [
     StockService,
-    GSheetUtils,
+    {
+      provide: 'GSheetUtils',
+      useClass: GSheetUtils,
+    },
     {
       provide: 'FormatUtils',
       useClass: FormatUtils,
