@@ -6,6 +6,13 @@ import { FormatUtils } from './Utils/format.utils';
 
 @Module({
   controllers: [StockController],
-  providers: [StockService, GSheetUtils, FormatUtils],
+  providers: [
+    StockService,
+    GSheetUtils,
+    {
+      provide: 'FormatUtils',
+      useClass: FormatUtils,
+    },
+  ],
 })
 export class StockModule {}
