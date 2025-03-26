@@ -23,7 +23,7 @@ export class GSheetUtils {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: process.env.GOOGLE_SHEETS_ID,
+      spreadsheetId: configuration().google_sheets.google_sheet_id,
       range: 'Sheet1!1:1',
     });
 
