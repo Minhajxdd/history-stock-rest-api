@@ -10,7 +10,7 @@ export class GSheetUtils {
   getAuth(): GoogleAuth {
     return new google.auth.GoogleAuth({
       keyFile: configuration().google_sheets.credential_path,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      scopes: [configuration().google_sheets.google_sheets_scopes],
     });
   }
 
