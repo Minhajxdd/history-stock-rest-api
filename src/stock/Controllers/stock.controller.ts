@@ -1,10 +1,13 @@
-import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
-import { StockService } from '../Services/stock.service';
+import { Controller, Get, Inject, Query, ValidationPipe } from '@nestjs/common';
 import { getStockPriceDto } from '../Dto/get-stock-price.dto';
+import { IStockService } from '../Interfaces/Services/stock-service.interface';
 
 @Controller('api')
 export class StockController {
-  constructor(private readonly _stockService: StockService) {}
+  constructor(
+    @Inject('StockService')
+    private readonly _stockService: IStockService,
+  ) {}
 
   @Get(`stock-price`)
   getStockPrice(
