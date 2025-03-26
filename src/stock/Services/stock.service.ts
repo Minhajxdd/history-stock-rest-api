@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { GSheetUtils } from '../Utils/g-sheets.utils';
 import { FormatUtils } from '../Utils/format.utils';
-import { google } from 'googleapis';
 
 @Injectable()
 export class StockService {
