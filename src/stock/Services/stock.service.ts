@@ -1,13 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { GSheetUtils } from '../Utils/g-sheets.utils';
-import { FormatUtils } from '../Utils/format.utils';
 import configuration from 'src/config/configuration';
+import { IFormatUtils } from '../Interfaces/Utils/format-utils-interface';
 
 @Injectable()
 export class StockService {
   constructor(
     private readonly _gSheetUtils: GSheetUtils,
-    private readonly _formatUtils: FormatUtils,
+    @Inject('FormatUtils')
+    private readonly _formatUtils: IFormatUtils,
   ) {}
 
   async getStockPrice(date: string, symbol: string): Promise<any> {
