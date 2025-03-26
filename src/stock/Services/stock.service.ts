@@ -2,9 +2,10 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import configuration from 'src/config/configuration';
 import { IFormatUtils } from '../Interfaces/Utils/format-utils-interface';
 import { IGSheetUtils } from '../Interfaces/Utils/g-sheets-utils.interface';
+import { IStockService } from '../Interfaces/Services/stock-service.interface';
 
 @Injectable()
-export class StockService {
+export class StockService implements IStockService {
   constructor(
     @Inject('GSheetUtils')
     private readonly _gSheetUtils: IGSheetUtils,
