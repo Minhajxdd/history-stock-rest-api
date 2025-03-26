@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import configuration from 'src/config/configuration';
+import { IFormatUtils } from '../Interfaces/Utils/format-utils-interface';
 
 @Injectable()
-export class FormatUtils {
+export class FormatUtils implements IFormatUtils {
   private readonly startDate = new Date(configuration().date.start_date);
   private readonly endDate = new Date(configuration().date.end_date);
 
