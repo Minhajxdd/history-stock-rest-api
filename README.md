@@ -68,6 +68,8 @@ To integrate the Google Sheets API, follow these steps:
 4. **Share Your Google Sheet:**
    - Open your Google Sheet that contains the stock data.
    - Share the sheet with the service account email (found in your `credentials.json` file) granting Editor permissions.
+   - You can refer to the following Google Sheet as an example dataset:  
+     [Sample Stock Data](https://docs.google.com/spreadsheets/d/1QHrstRCc1epOSRqi1lew8pJXwQUFMTYAHyXtAD2kC_I/edit?gid=0#gid=0)
 
 5. **Configure Environment Variables:**
    - Rename the provided `env.template` file to `.env`.
